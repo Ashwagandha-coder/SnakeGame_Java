@@ -10,7 +10,7 @@ public class GameField extends JPanel {
     private final int ALL_DOTS = 400;
 
     private Image dot;
-    private Image apple;
+    private Image meet;
 
     private int AppleX;
     private int AppleY;
@@ -29,6 +29,18 @@ public class GameField extends JPanel {
 
 
     public GameField() {
+
+        setBackground(Color.BLACK);
+        loadImage();
+    }
+
+    public void loadImage() {
+
+        ImageIcon imageIconMeet = new ImageIcon("мясо.jpg");
+        meet = imageIconMeet.getImage();
+
+        ImageIcon imageIconBox = new ImageIcon("коробка.png");
+        dot = imageIconBox.getImage();
 
 
 
