@@ -2,8 +2,11 @@ package com;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 
-public class GameField extends JPanel {
+public class GameField extends JPanel implements ActionListener {
 
     private final int SIZE = 320;
     private final int DOT_SIZE = 16;
@@ -12,8 +15,8 @@ public class GameField extends JPanel {
     private Image dot;
     private Image meet;
 
-    private int AppleX;
-    private int AppleY;
+    private int MeetX;
+    private int MeetY;
 
     private int[] x = new int[ALL_DOTS];
     private int[] y = new int[ALL_DOTS];
@@ -43,8 +46,37 @@ public class GameField extends JPanel {
         dot = imageIconBox.getImage();
 
 
+    }
 
+    public void intiGame() {
+
+        dots = 3;
+
+        for (int i = 0; i < dots; i++) {
+            x[i] = 48 - i * DOT_SIZE;
+            y[i] = 48;
+        }
+
+        timer = new Timer(250,this);
+        timer.start();
+        createMeet();
 
     }
 
+    public void createMeet() {
+
+        MeetX = new Random().nextInt(20) * DOT_SIZE;
+        MeetY = new Random().nextInt(20) * DOT_SIZE;
+
+    }
+
+    /**
+     * Invoked when an action occurs.
+     *
+     * @param e the event to be processed
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }
