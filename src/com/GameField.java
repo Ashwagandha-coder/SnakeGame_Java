@@ -48,7 +48,7 @@ public class GameField extends JPanel implements ActionListener {
 
     }
 
-    public void intiGame() {
+    public void initGame() {
 
         dots = 3;
 
@@ -69,6 +69,18 @@ public class GameField extends JPanel implements ActionListener {
         MeetY = new Random().nextInt(20) * DOT_SIZE;
 
     }
+    @Override
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
+
+        if (inGame) {
+            g.drawImage(meet,MeetX,MeetY,this);
+            for (int i = 0; i < dots; i++) {
+                g.drawImage(dot,x[i],y[i],this);
+            }
+        }
+    }
+
 
     public void move() {
 
