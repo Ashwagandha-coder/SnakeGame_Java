@@ -33,16 +33,17 @@ public class GameField extends JPanel implements ActionListener {
 
     public GameField() {
 
-        setBackground(Color.BLACK);
+        setBackground(Color.YELLOW);
         loadImage();
+        initGame();
     }
 
     public void loadImage() {
 
-        ImageIcon imageIconMeet = new ImageIcon("мясо.jpg");
+        ImageIcon imageIconMeet = new ImageIcon("meet.png");
         meet = imageIconMeet.getImage();
 
-        ImageIcon imageIconBox = new ImageIcon("коробка.png");
+        ImageIcon imageIconBox = new ImageIcon("dot.png");
         dot = imageIconBox.getImage();
 
 
