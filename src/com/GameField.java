@@ -33,7 +33,7 @@ public class GameField extends JPanel implements ActionListener {
 
     public GameField() {
 
-        setBackground(Color.YELLOW);
+        setBackground(Color.BLACK);
         loadImage();
         initGame();
     }
@@ -71,8 +71,8 @@ public class GameField extends JPanel implements ActionListener {
 
     }
     @Override
-    public void paintComponents(Graphics g) {
-        super.paintComponents(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
         if (inGame) {
             g.drawImage(meet,MeetX,MeetY,this);
@@ -81,6 +81,7 @@ public class GameField extends JPanel implements ActionListener {
             }
         }
     }
+
 
 
     public void move() {
@@ -102,10 +103,46 @@ public class GameField extends JPanel implements ActionListener {
 
     }
 
+    public void checkApple() {
+
+        if (x[0] == MeetX && y[0] == MeetY) {
+            dots++;
+            createMeet();
+        }
+
+    }
+
+    public void checkCollisions() {
+
+        // столкновение змеи сама с собой
+        for (int i = 0; i > 0; i--) {
+            if (i > 4 && x[0] == x[1] && y[0] == y[1]) {
+                inGame = false;
+            }
+        }
+        // проверка пределов выхода стены
+
+        if (x[0] > SIZE) {
+            inGame = false;
+        }
+        if (x[0] < 0) {
+            inGame = false;
+        }
+        if (y[0] > SIZE) {
+            inGame = false;
+        }
+        if (y[0] < 0) {
+            inGame = false;
+        }
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (inGame) {
+            checkApple();
+            checkCollisions();
             move();
         }
         repaint();
