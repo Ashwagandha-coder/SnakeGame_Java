@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class GameField extends JPanel implements ActionListener {
@@ -24,18 +26,20 @@ public class GameField extends JPanel implements ActionListener {
     private int dots;
     private Timer timer;
 
-    private boolean left = false;
-    private boolean right = true;
-    private boolean up = false;
-    private boolean down = false;
-    private boolean inGame = true;
+    private static boolean left = false;
+    private static boolean right = true;
+    private static boolean up = false;
+    private static boolean down = false;
+    private static boolean inGame = true;
 
 
     public GameField() {
 
-        setBackground(Color.BLACK);
+        setBackground(Color.YELLOW);
         loadImage();
         initGame();
+        addKeyListener(new FieldKeyListener());
+        setFocusable(true);
     }
 
     public void loadImage() {
@@ -66,6 +70,8 @@ public class GameField extends JPanel implements ActionListener {
 
     public void createMeet() {
 
+        // положение мяса
+
         MeetX = new Random().nextInt(20) * DOT_SIZE;
         MeetY = new Random().nextInt(20) * DOT_SIZE;
 
@@ -80,11 +86,20 @@ public class GameField extends JPanel implements ActionListener {
                 g.drawImage(dot,x[i],y[i],this);
             }
         }
+        else {
+            String str = "Game Over";
+            Font font = new Font("Arial",Font.BOLD,14);
+            g.setColor(Color.CYAN);
+            g.setFont(font);
+            g.drawString(str,125,SIZE/2);
+        }
     }
 
 
 
     public void move() {
+
+        // движение змеи
 
         for (int i = dots; i > 0 ; i--) {
 
@@ -103,7 +118,9 @@ public class GameField extends JPanel implements ActionListener {
 
     }
 
-    public void checkApple() {
+    public void checkMeet() {
+
+        // проверка мяса
 
         if (x[0] == MeetX && y[0] == MeetY) {
             dots++;
@@ -141,13 +158,56 @@ public class GameField extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (inGame) {
-            checkApple();
+            checkMeet();
             checkCollisions();
             move();
         }
         repaint();
 
     }
+    public static class FieldKeyListener extends KeyAdapter {
+
+        /**
+         * Invoked when a key has been pressed.
+         *
+         * @param e
+         */
+        @Override
+        public void keyPressed(KeyEvent e) {
+            super.keyPressed(e);
+
+            // нажатие клавиш
+
+            int key = e.getKeyCode();
+
+
+            if (key == KeyEvent.VK_LEFT && ! right) {
+                left = true;
+                up = false;
+                down = false;
+            }
+
+            if (key == KeyEvent.VK_RIGHT && ! left) {
+                right = true;
+                up = false;
+                down = false;
+            }
+
+            if (key == KeyEvent.VK_UP && ! down) {
+                up = true;
+                left = false;
+                right = false;
+            }
+
+            if (key == KeyEvent.VK_DOWN && ! up) {
+                down = true;
+                left = false;
+                right = false;
+            }
+        }
+    }
+
+
 }
 
-// Недоделал
+
