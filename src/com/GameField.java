@@ -70,13 +70,32 @@ public class GameField extends JPanel implements ActionListener {
 
     }
 
-    /**
-     * Invoked when an action occurs.
-     *
-     * @param e the event to be processed
-     */
+    public void move() {
+
+        for (int i = dots; i > 0 ; i--) {
+
+            x[i] = x[i - 1];
+            y[i] = y[i - 1];
+
+        }
+        if (left)
+            x[0] -= DOT_SIZE;
+        if (right)
+            x[0] += DOT_SIZE;
+        if (up)
+            x[0] -= DOT_SIZE;
+        if (down)
+            x[0] += DOT_SIZE;
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if (inGame) {
+            move();
+        }
+        repaint();
 
     }
 }
