@@ -62,7 +62,7 @@ public class GameField extends JPanel implements ActionListener {
             y[i] = 48;
         }
 
-        timer = new Timer(250,this);
+        timer = new Timer(250,new GameField());
         timer.start();
         createMeet();
 
@@ -81,9 +81,9 @@ public class GameField extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         if (inGame) {
-            g.drawImage(meet,MeetX,MeetY,this);
+            g.drawImage(meet,MeetX,MeetY,new GameField());
             for (int i = 0; i < dots; i++) {
-                g.drawImage(dot,x[i],y[i],this);
+                g.drawImage(dot,x[i],y[i],new GameField());
             }
         }
         else {
